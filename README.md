@@ -1,6 +1,6 @@
 <h1 align="center">Zenith</h1> <br>
 <p align="center">
-  <img alt="Night Sky" src="https://emojipedia-us.s3.amazonaws.com/thumbs/120/google/110/milky-way_1f30c.png" width="120">
+  <img alt="Night Sky" src="https://user-images.githubusercontent.com/943555/33152553-02da6b30-cf92-11e7-993d-57da7edf010a.png" width="120">
 </p>
 <p align="center">A better API wallet for ZenCash</p>
 
