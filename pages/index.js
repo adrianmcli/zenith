@@ -1,3 +1,8 @@
 import React from "react";
+import styled from "styled-components";
 
-export default () => <div>Hello from Next.js</div>;
+const Red = styled.span`
+  color: red;
+`;
+
+export default () => <div><Red>Hello</Red> from Next.js</div>;
