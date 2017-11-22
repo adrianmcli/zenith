@@ -1,0 +1,27 @@
+{
+  "name": "zenith",
+  "version": "0.1.0",
+  "description": "A better API wallet for ZenCash",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrianmcli/Zenith.git"
+  },
+  "author": "Adrian Li and Joshua Ma",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/adrianmcli/Zenith/issues"
+  },
+  "homepage": "https://github.com/adrianmcli/Zenith#readme",
+  "dependencies": {
+    "next": "^4.1.4",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1"
+  }
+}
