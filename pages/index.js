@@ -1,8 +1,26 @@
 import React from "react";
-import styled from "styled-components";
+import UnlockWallet from "../components/UnlockWallet";
+import { getPublicAddressesFromPrivateKeys } from "../lib/utils";
 
-const Red = styled.span`
-  color: red;
-`;
+export default class Wallet extends React.Component {
+  state = { privateKeys: null, publicAddresses: null };
 
-export default () => <div><Red>Hello</Red> from Next.js</div>;
+  setNewPrivateKeys = (privateKeys) => {
+    const publicAddresses = getPublicAddressesFromPrivateKeys(privateKeys);
+    this.setState({ privateKeys, publicAddresses });
+  };
+
+  render() {
+    const { privateKeys, publicAddresses } = this.state;
+    return (
+      <div>
+        <div>privateKeys: {privateKeys ? `not null` : `null`}</div>
+        <div>publicAddresses: {publicAddresses ? `not null` : `null`}</div>
+
+        <br />
+
+        <UnlockWallet setNewPrivateKeys={this.setNewPrivateKeys} />
+      </div>
+    );
+  }
+}
