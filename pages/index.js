@@ -14,8 +14,13 @@ export default class Wallet extends React.Component {
     const { privateKeys, publicAddresses } = this.state;
     return (
       <div>
-        <div>privateKeys: {privateKeys ? `not null` : `null`}</div>
-        <div>publicAddresses: {publicAddresses ? `not null` : `null`}</div>
+        <div>
+          privateKeys: {privateKeys ? JSON.stringify(privateKeys) : `null`}
+        </div>
+        <div>
+          publicAddresses:
+          {publicAddresses ? JSON.stringify(publicAddresses) : `null`}
+        </div>
 
         <br />
 
