@@ -3,7 +3,7 @@ import AddressInfo from "./AddressInfo";
 
 const sum = arr => arr.reduce((a, b) => a + b, 0);
 
-export default ({ addressData }) => {
+export default ({ addressData, updateBalances, balancesLastUpdated }) => {
   const addressDataList = Object.entries(addressData);
 
   const confirmeBalanceList = addressDataList.map(x => x[1].confirmedBalance);
@@ -17,6 +17,8 @@ export default ({ addressData }) => {
   return (
     <div>
       <h1>My Wallet (Unlocked)</h1>
+      <div>Last Update Requested: {balancesLastUpdated}</div>
+      <button onClick={updateBalances}>Update Balances</button>
       <div>
         Total (confirmed):
         {balancesReady ? totalBalance.confirmed : `Loading...`}

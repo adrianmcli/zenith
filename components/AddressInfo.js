@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({ address, confirmedBalance, unconfirmedBalance }) => {
+const AddressInfo = ({ address, confirmedBalance, unconfirmedBalance }) => {
   const explorerURL = `https://aayanl.tech/`;
   const explorerLinkForAddress = `${explorerURL}address/${address}`;
   return (
@@ -20,3 +20,10 @@ export default ({ address, confirmedBalance, unconfirmedBalance }) => {
     </div>
   );
 };
+
+AddressInfo.defaultProps = {
+  confirmedBalance: `N/A`,
+  unconfirmedBalance: `N/A`,
+};
+
+export default AddressInfo;
