@@ -21,20 +21,25 @@ export default class Wallet extends React.Component {
       };
     });
 
-  updateBalances = async () => {
+  clearBalances = () => {
     this.setState((prevState) => {
       const newPubAddresses = {};
-      for (const address in prevState.pubAddresses) {
+      Object.entries(prevState.pubAddresses).forEach((item) => {
+        const [address, value] = item;
         newPubAddresses[address] = {
-          ...newPubAddresses[address],
+          ...value,
           confirmedBalance: undefined,
           unconfirmedBalance: undefined,
         };
-      }
+      });
       return {
         pubAddresses: newPubAddresses,
       };
     });
+  }
+
+  updateBalances = async () => {
+    this.clearBalances();
 
     const addresses = Object.keys(this.state.pubAddresses);
     const addressesWithURLs = addresses.map((address) => {
