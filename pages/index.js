@@ -2,7 +2,6 @@
 import React from "react";
 import MyWallet from "../components/MyWallet";
 import UnlockWallet from "../components/UnlockWallet";
-import { setTimeout } from "timers";
 
 export default class Wallet extends React.Component {
   state = { pubAddresses: null };
@@ -20,7 +19,7 @@ export default class Wallet extends React.Component {
           [address]: newAddressData,
         },
       };
-    }, () => console.log('new balance just set'));
+    });
 
   updatePubAddressesInfo = async () => {
     const addresses = Object.keys(this.state.pubAddresses);
@@ -47,12 +46,8 @@ export default class Wallet extends React.Component {
   render() {
     const { pubAddresses } = this.state;
     const walletUnlocked = Boolean(pubAddresses);
-    return (
-      <div>
-        {walletUnlocked
-          ? <MyWallet addressData={pubAddresses} />
-          : <UnlockWallet setPubAddresses={this.setPubAddresses} />}
-      </div>
-    );
+    return walletUnlocked
+      ? <MyWallet addressData={pubAddresses} />
+      : <UnlockWallet setPubAddresses={this.setPubAddresses} />;
   }
 }
