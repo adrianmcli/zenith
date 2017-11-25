@@ -11,7 +11,7 @@ export default class Wallet extends React.Component {
   setPubAddresses = pubAddresses =>
     this.setState({ pubAddresses }, this.updateBalances);
 
-  updateBalances = async () => {
+  updateBalances = () => {
     this.setState(clearBalances());
 
     const makeURL = (address) => {
