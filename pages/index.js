@@ -1,7 +1,7 @@
 /* globals fetch */
 import React from "react";
 import MyWallet from "../components/MyWallet";
-import UnlockWallet from "../components/UnlockWallet";
+import UnlockWallet from "../components/UnlockWallet/UnlockWallet";
 
 export default class Wallet extends React.Component {
   state = { pubAddresses: null, balancesLastUpdated: null };
