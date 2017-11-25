@@ -1,5 +1,5 @@
 import React from "react";
-import { getPrivateKeysFromPassphrase } from "../lib/utils";
+import { getPrivateKeys, getPubAddresses } from "../lib/utils";
 
 export default class UnlockWallet extends React.Component {
   state = { passphrase: `` };
@@ -8,9 +8,10 @@ export default class UnlockWallet extends React.Component {
 
   handleSubmit = () => {
     const { passphrase } = this.state;
-    const { setNewPrivateKeys } = this.props;
-    const privateKeys = getPrivateKeysFromPassphrase(passphrase);
-    setNewPrivateKeys(privateKeys);
+    const { setPubAddresses } = this.props;
+    const privateKeys = getPrivateKeys(passphrase);
+    const pubAddresses = getPubAddresses(privateKeys);
+    setPubAddresses(pubAddresses);
   };
 
   render() {

@@ -2,15 +2,13 @@
 import React from "react";
 import MyWallet from "../components/MyWallet";
 import UnlockWallet from "../components/UnlockWallet";
-import { getPubAddresses } from "../lib/utils";
+import { setTimeout } from "timers";
 
 export default class Wallet extends React.Component {
-  state = { privKeys: null, pubAddresses: null };
+  state = { pubAddresses: null };
 
-  setNewPrivateKeys = (privKeys) => {
-    const pubAddresses = getPubAddresses(privKeys);
-    this.setState({ privKeys, pubAddresses }, this.updatePubAddressesInfo);
-  };
+  setPubAddresses = pubAddresses =>
+    this.setState({ pubAddresses }, this.updatePubAddressesInfo);
 
   setPubAddressInfo = (address, newData) =>
     this.setState((prevState) => {
@@ -22,7 +20,7 @@ export default class Wallet extends React.Component {
           [address]: newAddressData,
         },
       };
-    });
+    }, () => console.log('new balance just set'));
 
   updatePubAddressesInfo = async () => {
     const addresses = Object.keys(this.state.pubAddresses);
@@ -32,15 +30,17 @@ export default class Wallet extends React.Component {
       return { address, url };
     });
 
-    // fetch and set data one by one
     /* eslint-disable no-restricted-syntax, no-await-in-loop */
-    for (const item of addressesWithURLs) {
-      const res = await fetch(item.url).then(x => x.json());
-      this.setPubAddressInfo(item.address, {
-        confirmedBalance: res.balance,
-        unconfirmedBalance: res.unconfirmedBalance,
-      });
-    }
+    addressesWithURLs.forEach((item) => {
+      // fetch data, but not all at once (by using event loop w/ setTimeout)
+      setTimeout(async () => {
+        const res = await fetch(item.url).then(x => x.json());
+        this.setPubAddressInfo(item.address, {
+          confirmedBalance: res.balance,
+          unconfirmedBalance: res.unconfirmedBalance,
+        });
+      }, 0);
+    });
     /* eslint-enable */
   };
 
@@ -50,8 +50,8 @@ export default class Wallet extends React.Component {
     return (
       <div>
         {walletUnlocked
-          ? <MyWallet pubAddresses={pubAddresses} />
-          : <UnlockWallet setNewPrivateKeys={this.setNewPrivateKeys} />}
+          ? <MyWallet addressData={pubAddresses} />
+          : <UnlockWallet setPubAddresses={this.setPubAddresses} />}
       </div>
     );
   }
