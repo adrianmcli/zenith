@@ -1,26 +1,28 @@
 /* globals fetch */
 import React from "react";
 import MyWallet from "../components/MyWallet";
-import UnlockWallet from "../components/UnlockWallet";
-import { setTimeout } from "timers";
+import UnlockWallet from "../components/UnlockWallet/UnlockWallet";
 
 export default class Wallet extends React.Component {
   state = { pubAddresses: null };
 
   setPubAddresses = pubAddresses =>
-    this.setState({ pubAddresses }, this.updatePubAddressesInfo);
+    console.log(pubAddresses) || this.setState({ pubAddresses }, this.updatePubAddressesInfo);
 
   setPubAddressInfo = (address, newData) =>
-    this.setState((prevState) => {
-      const oldData = prevState.pubAddresses[address];
-      const newAddressData = Object.assign({}, oldData, newData);
-      return {
-        pubAddresses: {
-          ...prevState.pubAddresses,
-          [address]: newAddressData,
-        },
-      };
-    }, () => console.log('new balance just set'));
+    this.setState(
+      (prevState) => {
+        const oldData = prevState.pubAddresses[address];
+        const newAddressData = Object.assign({}, oldData, newData);
+        return {
+          pubAddresses: {
+            ...prevState.pubAddresses,
+            [address]: newAddressData,
+          },
+        };
+      },
+      () => console.log(`new balance just set`),
+    );
 
   updatePubAddressesInfo = async () => {
     const addresses = Object.keys(this.state.pubAddresses);
@@ -49,9 +51,11 @@ export default class Wallet extends React.Component {
     const walletUnlocked = Boolean(pubAddresses);
     return (
       <div>
-        {walletUnlocked
-          ? <MyWallet addressData={pubAddresses} />
-          : <UnlockWallet setPubAddresses={this.setPubAddresses} />}
+        {walletUnlocked ? (
+          <MyWallet addressData={pubAddresses} />
+        ) : (
+          <UnlockWallet setPubAddresses={this.setPubAddresses} />
+        )}
       </div>
     );
   }
