@@ -28,11 +28,12 @@ export default ({ addressData, updateBalances, balancesLastUpdated }) => {
         {balancesReady ? totalBalance.unconfirmed : `Loading...`}
       </div>
       <div>
-        {addressDataList.map(x => (
+        {addressDataList.map(([address, data]) => (
           <AddressInfo
-            address={x[0]}
-            confirmedBalance={x[1].confirmedBalance}
-            unconfirmedBalance={x[1].unconfirmedBalance}
+            key={address}
+            address={address}
+            confirmedBalance={data.confirmedBalance}
+            unconfirmedBalance={data.unconfirmedBalance}
           />
         ))}
       </div>
