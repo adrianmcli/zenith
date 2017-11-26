@@ -1,21 +1,23 @@
 import React from "react";
 import AddressInfo from "./AddressInfo";
+import SendZen from "./SendZen";
 
 const sum = arr => arr.reduce((a, b) => a + b, 0);
 
 export default ({ addressData, updateBalances, balancesLastUpdated }) => {
   const addressDataList = Object.entries(addressData);
 
-  const confirmeBalanceList = addressDataList.map(x => x[1].confirmedBalance);
-  const unconfirmeBalanceList = addressDataList.map(x => x[1].unconfirmedBalance);
+  const confirmedBalanceList = addressDataList.map(x => x[1].confirmedBalance);
+  const unconfirmedBalanceList = addressDataList.map(x => x[1].unconfirmedBalance);
 
   const totalBalance = {
-    confirmed: sum(confirmeBalanceList),
-    unconfirmed: sum(unconfirmeBalanceList),
+    confirmed: sum(confirmedBalanceList),
+    unconfirmed: sum(unconfirmedBalanceList),
   };
   const balancesReady = !Number.isNaN(totalBalance.confirmed);
   return (
     <div>
+      <SendZen addressData={addressData} />
       <h1>My Wallet (Unlocked)</h1>
       <div>Last Update Requested: {balancesLastUpdated}</div>
       <button onClick={updateBalances}>Update Balances</button>
