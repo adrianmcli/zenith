@@ -26,7 +26,7 @@ export default class SendZen extends React.Component {
     const recipients = [{ address: toAddress, satoshis: satoshisToSend }];
 
     // Private key
-    const { senderPrivateKey } = addressData[fromAddress];
+    const { privateKey } = addressData[fromAddress];
 
     // Build URLs for transaction
     const prevTxURL = `${insightAPIURL}addr/${fromAddress}/utxo`;
@@ -91,19 +91,16 @@ export default class SendZen extends React.Component {
       blockHash,
     );
     console.log(txObj);
+    console.log(privateKey);
 
     for (let i = 0; i < prunedHistoryWithCum.length; i++) {
-      txObj = zencashjs.transaction.signTx(
-        txObj,
-        i,
-        senderPrivateKey,
-      );
+      console.log(i);
+      txObj = zencashjs.transaction.signTx(txObj, i, privateKey);
     }
-
-    console.log(`second time: ${txObj}`);
+    console.log(txObj);
 
     const txHexString = zencashjs.transaction.serializeTx(txObj);
-    
+
     const sendRes = await fetch(sendRawTxURL, {
       method: `post`,
       body: txHexString,
