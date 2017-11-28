@@ -11,7 +11,6 @@ export default class SendZen extends React.Component {
 
   handleChange = key => e => this.setState({ [key]: e.target.value });
   handleSubmit = async () => {
-    console.log(`in here`);
     const {
       fromAddress, toAddress, sendAmount, fee,
     } = this.state;
@@ -75,13 +74,19 @@ export default class SendZen extends React.Component {
       return sufficient ? acc : [...acc, curr];
     }, []);
 
+    console.log(`cumulative history: \n${JSON.stringify(prunedHistoryWithCum)}`);
+
     const lastItem = x => x[x.length - 1];
 
-    // This is a boolean telling us if we have enough satoshis for the txn
-    const historySufficient = lastItem(prunedHistoryWithCum).cumSatoshis >= targetSatoshis;
-    if (!historySufficient) alert(`not enough confirmed ZEN to perform transaction`);
+    // If we don't have exact amount
+    // Refund remaining to current address
+    const refundSatoshis = lastItem(prunedHistoryWithCum).cumSatoshis - targetSatoshis;
 
-    console.log(prunedHistoryWithCum);
+    if (refundSatoshis >= 0) {
+      recipients.push({ address: fromAddress, satoshis: refundSatoshis });
+    } else {
+      alert(`not enough confirmed ZEN to perform transaction`);
+    }
 
     // Create transaction object
     let txObj = await zencashjs.transaction.createRawTx(
@@ -90,25 +95,29 @@ export default class SendZen extends React.Component {
       blockHeight,
       blockHash,
     );
-    console.log(txObj);
-    console.log(privateKey);
 
-    // txObj: {…}ins: […]0: Object { output: {…}, prevScriptPubKey: "76a914ee5fb9782b1a11de6608c6e72bb5361a8ef4dca788ac2094c6bd631b3b993e61f18863b8f4928b2d4f6049aee2edaacfe1ac96f0511b0003d37802b4", sequence: "ffffffff", … }length: 1__proto__: Array []locktime: 0outs: […]0: Object { script: "76a9148b01bf398854f997cc98bb3a5f982b141fa27e8b88ac20b933f41ac03bcf2332d856e3f149e01bfb8f39316dc8ed0fb7afacefcad80c0003107d02b4", satoshis: 200000000 }length: 1__proto__: Array []version: 1__proto__: Object { … }
-    // PK: 3e6254e484291e68235e8148a301c13bf423cc3f1310e4e7b910fa2bba6cf1cf
+    console.log(`recipients: \n${JSON.stringify(recipients)}`);
+    console.log(`private key: \n${privateKey}`);
+    console.log(`txObj (pre-sign): \n${JSON.stringify(txObj)}`);
 
-    for (let i = 0; i < prunedHistoryWithCum.length; i++) {
-      console.log(i);
-      txObj = zencashjs.transaction.signTx(txObj, i, privateKey);
+    for (let i = 0; i < txObj.ins.length; i++) {
+      txObj = zencashjs.transaction.signTx(txObj, i, privateKey, true);
     }
-    
-    console.log(txObj);
+
+    console.log(`txObj (post-sign): \n${JSON.stringify(txObj)}`);
 
     const txHexString = zencashjs.transaction.serializeTx(txObj);
 
+    console.log(`txHexString: \n${txHexString}`);
+
+    // POST request to complete send
     const sendRes = await fetch(sendRawTxURL, {
       method: `post`,
-      body: txHexString,
-    }).then(x => x.json());
+      body: { rawtx: txHexString },
+    })
+      .then(x => x.json())
+      .catch(err => console.log(err));
+
     console.log(sendRes);
   };
 
