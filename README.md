@@ -25,6 +25,8 @@ Serve pages to localhost:3000
 yarn dev
 ``` 
 
+Code is in `SendZen.js`
+
 ## Kendrick: reproduction steps
 
 1. Unlock wallet in first textbox using phrase:
