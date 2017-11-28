@@ -64,8 +64,6 @@ export default class SendZen extends React.Component {
         return [...acc, { ...curr, cumSatoshis }];
       }, []);
 
-    console.log(historyWithCum);
-
     // Create new list with the cumulative utxos sufficient to meet target amount
     const prunedHistoryWithCum = historyWithCum.reduce((acc, curr, idx) => {
       // base case for first iteration
@@ -83,6 +81,8 @@ export default class SendZen extends React.Component {
     const historySufficient = lastItem(prunedHistoryWithCum).cumSatoshis >= targetSatoshis;
     if (!historySufficient) alert(`not enough confirmed ZEN to perform transaction`);
 
+    console.log(prunedHistoryWithCum);
+
     // Create transaction object
     let txObj = await zencashjs.transaction.createRawTx(
       prunedHistoryWithCum,
@@ -93,10 +93,14 @@ export default class SendZen extends React.Component {
     console.log(txObj);
     console.log(privateKey);
 
+    // txObj: {…}ins: […]0: Object { output: {…}, prevScriptPubKey: "76a914ee5fb9782b1a11de6608c6e72bb5361a8ef4dca788ac2094c6bd631b3b993e61f18863b8f4928b2d4f6049aee2edaacfe1ac96f0511b0003d37802b4", sequence: "ffffffff", … }length: 1__proto__: Array []locktime: 0outs: […]0: Object { script: "76a9148b01bf398854f997cc98bb3a5f982b141fa27e8b88ac20b933f41ac03bcf2332d856e3f149e01bfb8f39316dc8ed0fb7afacefcad80c0003107d02b4", satoshis: 200000000 }length: 1__proto__: Array []version: 1__proto__: Object { … }
+    // PK: 3e6254e484291e68235e8148a301c13bf423cc3f1310e4e7b910fa2bba6cf1cf
+
     for (let i = 0; i < prunedHistoryWithCum.length; i++) {
       console.log(i);
       txObj = zencashjs.transaction.signTx(txObj, i, privateKey);
     }
+    
     console.log(txObj);
 
     const txHexString = zencashjs.transaction.serializeTx(txObj);
