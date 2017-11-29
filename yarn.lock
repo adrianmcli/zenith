@@ -1142,6 +1142,12 @@ bip66@^1.1.0, bip66@^1.1.3:
   dependencies:
     safe-buffer "^5.0.1"
 
+biskviit@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/biskviit/-/biskviit-1.0.1.tgz#037a0cd4b71b9e331fd90a1122de17dc49e420a7"
+  dependencies:
+    psl "^1.1.7"
+
 bitcoin-ops@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/bitcoin-ops/-/bitcoin-ops-1.3.0.tgz#6b126b585537bc679b02ed499f14450cffc37e13"
@@ -1907,6 +1913,12 @@ doctrine@^2.0.0:
     esutils "^2.0.2"
     isarray "^1.0.0"
 
+doctrine@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-2.0.2.tgz#68f96ce8efc56cc42651f1faadb4f175273b0075"
+  dependencies:
+    esutils "^2.0.2"
+
 dom-walk@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/dom-walk/-/dom-walk-0.1.1.tgz#672226dc74c8f799ad35307df936aba11acd6018"
@@ -1981,7 +1993,7 @@ encodeurl@~1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-1.0.1.tgz#79e3d58655346909fe6f0f45a5de68103b294d20"
 
-encoding@^0.1.11:
+encoding@0.1.12, encoding@^0.1.11:
   version "0.1.12"
   resolved "https://registry.yarnpkg.com/encoding/-/encoding-0.1.12.tgz#538b66f3ee62cd1ab51ec323829d1f9480c74beb"
   dependencies:
@@ -2233,7 +2245,7 @@ eslint-scope@^3.7.1:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint@^4.10.0, eslint@^4.11.0:
+eslint@^4.10.0:
   version "4.11.0"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.11.0.tgz#39a8c82bc0a3783adf5a39fa27fdd9d36fac9a34"
   dependencies:
@@ -2253,6 +2265,48 @@ eslint@^4.10.0, eslint@^4.11.0:
     functional-red-black-tree "^1.0.1"
     glob "^7.1.2"
     globals "^9.17.0"
+    ignore "^3.3.3"
+    imurmurhash "^0.1.4"
+    inquirer "^3.0.6"
+    is-resolvable "^1.0.0"
+    js-yaml "^3.9.1"
+    json-stable-stringify-without-jsonify "^1.0.1"
+    levn "^0.3.0"
+    lodash "^4.17.4"
+    minimatch "^3.0.2"
+    mkdirp "^0.5.1"
+    natural-compare "^1.4.0"
+    optionator "^0.8.2"
+    path-is-inside "^1.0.2"
+    pluralize "^7.0.0"
+    progress "^2.0.0"
+    require-uncached "^1.0.3"
+    semver "^5.3.0"
+    strip-ansi "^4.0.0"
+    strip-json-comments "~2.0.1"
+    table "^4.0.1"
+    text-table "~0.2.0"
+
+eslint@^4.12.0:
+  version "4.12.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.12.0.tgz#a7ce78eba8cc8f2443acfbbc870cc31a65135884"
+  dependencies:
+    ajv "^5.3.0"
+    babel-code-frame "^6.22.0"
+    chalk "^2.1.0"
+    concat-stream "^1.6.0"
+    cross-spawn "^5.1.0"
+    debug "^3.0.1"
+    doctrine "^2.0.2"
+    eslint-scope "^3.7.1"
+    espree "^3.5.2"
+    esquery "^1.0.0"
+    estraverse "^4.2.0"
+    esutils "^2.0.2"
+    file-entry-cache "^2.0.0"
+    functional-red-black-tree "^1.0.1"
+    glob "^7.1.2"
+    globals "^11.0.1"
     ignore "^3.3.3"
     imurmurhash "^0.1.4"
     inquirer "^3.0.6"
@@ -2414,6 +2468,13 @@ fbjs@^0.8.16, fbjs@^0.8.5, fbjs@^0.8.9:
     promise "^7.1.1"
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.9"
+
+fetch@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/fetch/-/fetch-1.1.0.tgz#0a8279f06be37f9f0ebb567560a30a480da59a2e"
+  dependencies:
+    biskviit "1.0.1"
+    encoding "0.1.12"
 
 figures@^2.0.0:
   version "2.0.0"
@@ -2787,6 +2848,10 @@ global@^4.3.0:
 globals@^10.0.0:
   version "10.4.0"
   resolved "https://registry.yarnpkg.com/globals/-/globals-10.4.0.tgz#5c477388b128a9e4c5c5d01c7a2aca68c68b2da7"
+
+globals@^11.0.1:
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/globals/-/globals-11.0.1.tgz#12a87bb010e5154396acc535e1e43fc753b0e5e8"
 
 globals@^9.17.0, globals@^9.18.0:
   version "9.18.0"
@@ -3456,10 +3521,6 @@ libsodium-wrappers-sumo@^0.5.2:
   resolved "https://registry.yarnpkg.com/libsodium-wrappers-sumo/-/libsodium-wrappers-sumo-0.5.4.tgz#ee69f6c960965e0d7d65cc4282c2fb33485d06a2"
   dependencies:
     libsodium-sumo "0.5.4"
-
-libsodium@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/libsodium/-/libsodium-0.7.2.tgz#aae809057f637b5c43eb08fa0445f987735df854"
 
 load-json-file@^1.0.0:
   version "1.1.0"
@@ -4500,6 +4561,10 @@ prr@~0.0.0:
 pseudomap@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
+
+psl@^1.1.7:
+  version "1.1.20"
+  resolved "https://registry.yarnpkg.com/psl/-/psl-1.1.20.tgz#363382f332388880b155e2506345957084288e9d"
 
 public-encrypt@^4.0.0:
   version "4.0.0"
@@ -5955,9 +6020,9 @@ yargs@~3.10.0:
     decamelize "^1.0.0"
     window-size "0.1.0"
 
-zencashjs@^1.1.8-a:
-  version "1.1.8-a"
-  resolved "https://registry.yarnpkg.com/zencashjs/-/zencashjs-1.1.8-a.tgz#09c47d9e7e87d4b130c77c2104d6b4fbb82bfbbf"
+zencashjs@^1.1.9-a:
+  version "1.1.9-a"
+  resolved "https://registry.yarnpkg.com/zencashjs/-/zencashjs-1.1.9-a.tgz#cbaffbe06e261301850a9f0b5326e12ecf9543c5"
   dependencies:
     babel-cli "^6.24.1"
     babel-eslint "^8.0.2"
