@@ -112,8 +112,12 @@ export default class SendZen extends React.Component {
 
     // POST request to complete send
     const sendRes = await fetch(sendRawTxURL, {
+      headers: {
+        Accept: `application/json`, // receive json
+        'Content-Type': `application/json`,
+      },
       method: `post`,
-      body: { rawtx: txHexString },
+      body: JSON.stringify({ rawtx: txHexString }),
     })
       .then(x => x.json())
       .catch(err => console.log(err));
