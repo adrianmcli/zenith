@@ -7,14 +7,16 @@ export default class SendZen extends React.Component {
     toAddress: null,
     sendAmount: 0,
     fee: 0,
+    msg: null,
   };
 
   handleChange = key => e => this.setState({ [key]: e.target.value });
   handleSubmit = async () => {
     const {
-      fromAddress, toAddress, sendAmount, fee,
+      fromAddress, toAddress, sendAmount, fee, msg, trackURL,
     } = this.state;
     const { addressData } = this.props;
+    const explorerURL = `https://aayanl.tech/`;
     const insightAPIURL = `https://aayanl.tech/insight-api-zen/`;
 
     // Convert how much we wanna send
@@ -41,6 +43,8 @@ export default class SendZen extends React.Component {
 
     const BHresponse = await fetch(blockHashURL).then(x => x.json());
     const { blockHash } = BHresponse;
+
+    console.log(`utxo: \n${JSON.stringify(utxoList)}`);
 
     // Appends cumulative value of each item in utxoList
     const historyWithCum = utxoList
@@ -114,7 +118,7 @@ export default class SendZen extends React.Component {
     const sendRes = await fetch(sendRawTxURL, {
       headers: {
         Accept: `application/json`, // receive json
-        'Content-Type': `application/json`,
+        "Content-Type": `application/json`,
       },
       method: `post`,
       body: JSON.stringify({ rawtx: txHexString }),
@@ -123,6 +127,8 @@ export default class SendZen extends React.Component {
       .catch(err => console.log(err));
 
     console.log(sendRes);
+    const url = `${explorerURL}tx/${sendRes.txid}`;
+    this.setState({ msg: sendRes, trackURL: url });
   };
 
   render() {
@@ -161,6 +167,15 @@ export default class SendZen extends React.Component {
         />
         <br />
         <button onClick={this.handleSubmit}>Submit</button>
+        {this.state.msg ? (
+          <div>
+            Track Transaction:
+            <a href={this.state.trackURL} target="_blank">
+              {this.state.msg.txid}
+            </a>
+          </div>
+        ) : null}
+        <div />
       </div>
     );
   }
