@@ -1,5 +1,15 @@
 import React from "react";
+import styled from "styled-components";
 import { getPrivateKeys, getPubAddresses } from "../../lib/utils";
+import { BodyText } from "../common/core";
+import Button from "../common/Button";
+
+const Input = styled.input`
+  display: block;
+  padding: 6px;
+  width: 100%;
+  margin-bottom: 16px;
+`;
 
 export default class HDWallet extends React.Component {
   state = { passphrase: `` };
@@ -18,8 +28,15 @@ export default class HDWallet extends React.Component {
   render() {
     return (
       <div>
-        <input type="text" value={this.state.passphrase} onChange={this.handleChange} />
-        <button onClick={this.handleSubmit}>Submit</button>
+        <BodyText>Enter in your passphrase:</BodyText>
+        <Input
+          type="text"
+          value={this.state.passphrase}
+          onChange={this.handleChange}
+        />
+        <Button onClick={this.handleSubmit}>Submit</Button>
+        <BodyText>No passphrase? Generate a new wallet:</BodyText>
+        <Button>Generate New Wallet</Button>
       </div>
     );
   }

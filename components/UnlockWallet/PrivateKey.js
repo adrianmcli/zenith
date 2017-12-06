@@ -1,5 +1,6 @@
 import React from "react";
 import { getPubAddresses } from "../../lib/utils";
+import { BodyText } from "../common/core";
 
 export default class PrivateKey extends React.Component {
   state = { privateKey: `` };
@@ -18,7 +19,12 @@ export default class PrivateKey extends React.Component {
   render() {
     return (
       <div>
-        <input type="text" value={this.state.privateKey} onChange={this.handleChange} />
+        <BodyText>Enter in your private key:</BodyText>
+        <input
+          type="text"
+          value={this.state.privateKey}
+          onChange={this.handleChange}
+        />
         <button onClick={this.handleSubmit}>Submit</button>
       </div>
     );
