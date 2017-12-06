@@ -140,7 +140,11 @@ export default class SendZen extends React.Component {
       <div>
         <div>{this.state.fromAddress}</div>
         <select value={this.state.fromAddress} onChange={this.handleChange(`fromAddress`)}>
-          {addressList.map(x => <option key={x} value={x}>{x}</option>)}
+          {addressList.map(x => (
+            <option key={x} value={x}>
+              {x}
+            </option>
+          ))}
         </select>
         <br />
         <input

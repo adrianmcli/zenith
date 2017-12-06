@@ -21,8 +21,10 @@
   "homepage": "https://github.com/adrianmcli/Zenith#readme",
   "dependencies": {
     "bip32-utils": "^0.10.2",
-    "bitcoinjs-lib": "^3.3.1",    
+    "bitcoinjs-lib": "^3.3.1",
     "next": "^4.1.4",
+    "pjson": "^1.0.9",
+    "qrcode.react": "^0.7.2",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "styled-components": "^2.2.3",

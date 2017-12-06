@@ -1,6 +1,7 @@
 import React from "react";
 import AddressInfo from "./AddressInfo";
 import SendZen from "./SendZen";
+import ExportWallet from "./ExportWallet";
 
 const sum = arr => arr.reduce((a, b) => a + b, 0);
 
@@ -18,6 +19,8 @@ export default ({ addressData, updateBalances, balancesLastUpdated }) => {
   return (
     <div>
       <SendZen addressData={addressData} />
+      <br />
+      <ExportWallet addressDataList={addressDataList} addressData={addressData} />
       <h1>My Wallet (Unlocked)</h1>
       <div>Last Update Requested: {balancesLastUpdated}</div>
       <button onClick={updateBalances}>Update Balances</button>
