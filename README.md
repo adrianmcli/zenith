@@ -27,7 +27,7 @@ yarn dev
 
 Code is in `SendZen.js`
 
-## Kendrick: reproduction steps
+## Reproduction steps
 
 1. Unlock wallet in first textbox using the secret passphrase.
 2. Select the first address for the dropdown (duplicate address should appear right above it if selected properly)
