@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import HDWallet from "./HDWallet";
 import PrivateKey from "./PrivateKey";
+import GenerateNew from './GenerateNew';
 
 import { Tomato, Title, BodyText, Hr } from '../common/core';
 
@@ -33,6 +34,10 @@ const Content = styled.div`
   }
 `;
 
+const Description = styled.div`
+  margin-bottom: 48px;
+`;
+
 const Splash = styled.div`
   flex: 1;
   height: 100%;
@@ -48,6 +53,7 @@ const Splash = styled.div`
 const TabGroup = styled.div`
   display: flex;
   margin-bottom: 24px;
+  align-items: center;
 `;
 
 const Tab = styled.div`
@@ -55,17 +61,27 @@ const Tab = styled.div`
   border-bottom: 2px solid;
   border-color: ${p => (p.active ? `tomato` : `transparent`)};
   padding: 8px;
-  margin-right: 12px;
+  margin-left: 8px;
+  margin-right: 8px;
   cursor: pointer;
   transition: border-color 200ms, color 200ms;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
 
   &:hover {
     color: ${p => (p.active ? `tomato` : `rgba(0,0,0,0.5)`)};
   }
 `;
 
-const UnlockMethodWrapper = styled.div`
-  // padding-top: 24px;
+const TabDivider = styled.div`
+  border-right: 2px solid rgba(0,0,0,0.05);
+  height: 24px;
 `;
 
 export default class UnlockWallet extends React.Component {
@@ -80,6 +96,8 @@ export default class UnlockWallet extends React.Component {
       return <HDWallet setPubAddresses={this.props.setPubAddresses} />;
     } else if (unlockMethod === `PRIV_KEY`) {
       return <PrivateKey setPubAddresses={this.props.setPubAddresses} />;
+    } else if (unlockMethod === `GEN_NEW`) {
+      return <GenerateNew setPubAddresses={this.props.setPubAddresses} />;
     }
     return null;
   };
@@ -90,11 +108,12 @@ export default class UnlockWallet extends React.Component {
       <Container>
         <Content>
           <TextLogo><Tomato>ZEN</Tomato>ITH</TextLogo>
-          <Title>Unlock your wallet.</Title>
-          <BodyText>
-            Choose your method of unlocking a ZenCash wallet.
-          </BodyText>
-          <Hr />
+          <Description>
+            <Title>Unlock your wallet.</Title>
+            <BodyText>
+              Choose your method of unlocking a ZenCash wallet.
+            </BodyText>
+          </Description>
           <TabGroup>
             <Tab
               active={unlockMethod === `HD_WALLET`}
@@ -102,11 +121,19 @@ export default class UnlockWallet extends React.Component {
             >
               Passphrase
             </Tab>
+            <TabDivider />
             <Tab
               active={unlockMethod === `PRIV_KEY`}
               onClick={this.changeUnlockMethod(`PRIV_KEY`)}
             >
               Private Key
+            </Tab>
+            <TabDivider />
+            <Tab
+              active={unlockMethod === `GEN_NEW`}
+              onClick={this.changeUnlockMethod(`GEN_NEW`)}
+            >
+              New Wallet
             </Tab>
           </TabGroup>
           {this.renderUnlockMethod()}

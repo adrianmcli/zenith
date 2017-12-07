@@ -11,18 +11,40 @@ const Input = styled.input`
   margin-bottom: 16px;
 `;
 
+const Status = styled.div`
+  color: ${p => (p.error ? `#de1616` : `rgba(0,0,0,0.5)`)};
+  display: inline-block;
+  margin-left: 12px;
+`;
+
 export default class HDWallet extends React.Component {
-  state = { passphrase: `` };
+  state = { passphrase: ``, status: null, error: false };
 
   handleSubmit = () => {
     const { setPubAddresses } = this.props;
-    const privateKeys = getPrivateKeys(this.state.passphrase);
-    const pubAddresses = getPubAddresses(privateKeys);
-    setPubAddresses(pubAddresses);
+    this.setState({ status: `Unlocking wallet...`, error: false }, () => {
+      // allow time for the new status message to render
+      setTimeout(() => {
+        try {
+          const privateKeys = getPrivateKeys(this.state.passphrase);
+          const pubAddresses = getPubAddresses(privateKeys);
+          this.setState({ status: null });
+          setPubAddresses(pubAddresses);
+        } catch (err) {
+          this.setState({ status: `Passphrase is too short`, error: true });
+        }
+      }, 10);
+    });
   };
 
   handleChange = (e) => {
     this.setState({ passphrase: e.target.value });
+  };
+
+  handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      this.handleSubmit();
+    }
   };
 
   render() {
@@ -33,10 +55,12 @@ export default class HDWallet extends React.Component {
           type="text"
           value={this.state.passphrase}
           onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown}
+          placeholder="e.g. cash cow money moon dog rise buy trade etc."
         />
         <Button onClick={this.handleSubmit}>Submit</Button>
-        <BodyText>No passphrase? Generate a new wallet:</BodyText>
-        <Button>Generate New Wallet</Button>
+        {this.state.status &&
+          <Status error={this.state.error}>{this.state.status}</Status>}
       </div>
     );
   }

@@ -13,6 +13,9 @@ injectGlobal`
     font-weight: 400;
     font-style: normal;
   }
+  * {
+    box-sizing: border-box;
+  }
 `;
 
 export default class MyDocument extends Document {
