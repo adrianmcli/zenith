@@ -12,6 +12,8 @@
 
 ---
 
+![screenshot](https://user-images.githubusercontent.com/943555/34443683-c48ee636-ec96-11e7-911f-570993a300bc.png)
+
 ## Installation
 
 ```bash
